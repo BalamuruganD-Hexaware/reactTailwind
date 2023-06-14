@@ -1,19 +1,19 @@
 import axios, { AxiosInstance } from 'axios';
 
 export class RequestHandler {
-  axiosInstance: AxiosInstance;
+  instance: AxiosInstance;
 
   constructor() {
     const options = {
-      baseURL: '',
+      baseURL: import.meta.env.BASE_URL,
       headers: {
         'Content-type': 'application/json',
       },
     };
-    this.axiosInstance = axios.create(options);
+    this.instance = axios.create(options);
   }
 
   get requestHandler() {
-    return this.axiosInstance;
+    return this.instance;
   }
 }
