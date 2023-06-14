@@ -1,21 +1,31 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import Home from '../pages/Home';
+import { Provider } from 'react-redux';
+import store from '@/store';
 
 describe('Home', () => {
   it('should be defined', () => {
-    render(<Home />);
+    render(
+      <Provider store={store}>
+        <Home />
+      </Provider>
+    );
   });
 });
 
 describe('Last Text Is Rendered', () => {
   beforeEach(() => {
-    render(<Home />);
+    render(
+      <Provider store={store}>
+        <Home />
+      </Provider>
+    );
   });
 
   it('should render the text', () => {
     expect(
-      screen.getByText('Click on the React logo to learn more')
+      screen.getByText('Welcome to RapidX')
     ).toBeInTheDocument();
   });
 });
