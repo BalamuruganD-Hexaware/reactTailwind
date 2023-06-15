@@ -1,1 +1,1 @@
-export {};
+export type { IBroker } from './broker';

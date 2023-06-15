@@ -12,7 +12,7 @@ function Footer({ label }: IProps) {
   return (
     <Box className="w-full flex items-center fixed bottom-0">
       <BottomNavigation
-        showLabels
+        // showLabels
         value={value}
         className="w-full"
         onChange={(event, newValue) => {

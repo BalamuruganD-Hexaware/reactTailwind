@@ -5,6 +5,7 @@ import {
   useDispatch as useReduxDispatch,
   TypedUseSelectorHook,
 } from 'react-redux';
+import { brokerApi } from '@/services/broker.service';
 
 const isDevelopment = process.env.NODE_ENV === 'development';
 
@@ -13,7 +14,7 @@ const store = configureStore({
   middleware: getDefaultMiddleware => {
     return getDefaultMiddleware({
       serializableCheck: false,
-    });
+    }).concat(brokerApi.middleware);
   },
   devTools: isDevelopment,
 });

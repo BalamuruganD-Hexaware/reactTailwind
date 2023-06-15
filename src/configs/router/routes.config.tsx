@@ -4,6 +4,7 @@ import NotFound from '@/common/pages/NotFound';
 import RedirectHere from '@/common/pages/RedirectHere';
 import UnAuthorized from '@/common/pages/UnAuthorized';
 import homeRoutes from '@/views/home/home.routes';
+import brokerRoutes from '@/views/broker/broker.routes';
 import MultiAuthProvider from '../auth/MultiAuthProvider';
 import Layout from '@/theme/pages/Layout';
 
@@ -17,7 +18,7 @@ const routes = () => {
     { path: '/login/*', element: <MultiAuthProvider /> },
     {
       element: <Layout />,
-      children: [...homeRoutes],
+      children: [...homeRoutes, ...brokerRoutes],
     },
   ];
   return all_routes;

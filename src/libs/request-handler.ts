@@ -1,19 +1,34 @@
-import axios, { AxiosInstance } from 'axios';
+import type { BaseQueryFn } from '@reduxjs/toolkit/query';
+import type { AxiosError, AxiosRequestConfig } from 'axios';
+import axios from 'axios';
 
-export class RequestHandler {
-  instance: AxiosInstance;
+type RequestHandlerParam = {
+  baseUrl: string;
+}
 
-  constructor() {
-    const options = {
-      baseURL: import.meta.env.BASE_URL,
-      headers: {
+type Fn = BaseQueryFn<
+  {
+    url: string
+    method: AxiosRequestConfig['method']
+    data?: AxiosRequestConfig['data']
+    params?: AxiosRequestConfig['params']
+  }, unknown, unknown>;
+
+export const requestHandler = ({ baseUrl }: RequestHandlerParam): Fn => async ({ url, method, data, params }) => {
+  try {
+    const response = await axios({
+      url: baseUrl + url, method, data, params, headers: {
         'Content-type': 'application/json',
       },
-    };
-    this.instance = axios.create(options);
-  }
-
-  get requestHandler() {
-    return this.instance;
+    });
+    return { data: response.data };
+  } catch (axiosError) {
+    let err = axiosError as AxiosError
+    return {
+      error: {
+        status: err.response?.status,
+        data: err.response?.data || err.message,
+      },
+    }
   }
 }
